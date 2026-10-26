@@ -43,9 +43,11 @@ class ApiClient {
     Map<String, dynamic>? body, {
     bool withAuth = true,
   }) async {
-    final base = Uri.parse(AppConfig.apiBaseUrl);
-    final joinedPath = '${base.path}/$path'.replaceAll(RegExp(r'/+'), '/');
-    final uri = base.replace(path: joinedPath);
+    final normalizedBase = AppConfig.apiBaseUrl.endsWith('/')
+        ? AppConfig.apiBaseUrl.substring(0, AppConfig.apiBaseUrl.length - 1)
+        : AppConfig.apiBaseUrl;
+    final normalizedPath = path.startsWith('/') ? path.substring(1) : path;
+    final uri = Uri.parse('$normalizedBase/$normalizedPath');
     final request = http.Request(method, uri)
       ..headers['accept'] = 'application/json'
       ..headers['content-type'] = 'application/json';

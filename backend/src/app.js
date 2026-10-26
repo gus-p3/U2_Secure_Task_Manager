@@ -18,7 +18,7 @@ app.use(
   cors({
     origin(origin, callback) {
       // No Origin can occur for native apps and local command-line clients.
-      if (!origin || allowedOrigins.has(origin)) return callback(null, true);
+      if (!origin || allowedOrigins.has(origin) || origin.startsWith('http://localhost:') || origin.startsWith('http://127.0.0.1:')) return callback(null, true);
       return callback(new Error('Origin not allowed.'));
     },
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],

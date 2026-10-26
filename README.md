@@ -139,6 +139,16 @@ Resultados de la ejecución de pruebas y ejercicios de seguridad:
   - `api_client_test.dart`: ✅ PASS (Refresco automático en 401 y reintento único)
   - `task_list_view_test.dart`: ✅ PASS (Estados: cargando, lista vacía, error con reintento, listado y toggle)
 
+### 📱 Capturas de la Aplicación en Ejecución (Android Emulator)
+
+| 1. Inicio de Sesión | 2. Registro de Usuario | 3. Lista Vacía (Empty State) |
+| :---: | :---: | :---: |
+| <img src="screenshots/01_login.png" width="240" alt="Login" /> | <img src="screenshots/02_register.png" width="240" alt="Registro" /> | <img src="screenshots/03_tasks_empty.png" width="240" alt="Empty State" /> |
+
+| 4. Modal / Diálogo Crear Tarea | 5. Lista de Tareas Poblada y Completada |
+| :---: | :---: |
+| <img src="screenshots/04_create_task.png" width="240" alt="Crear Tarea" /> | <img src="screenshots/05_tasks_populated.png" width="240" alt="Tareas Activas y Completadas" /> |
+
 ---
 
 ## 💡 Preguntas de Reflexión (Sección 19a)
