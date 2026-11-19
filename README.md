@@ -131,13 +131,52 @@ Resultados de la ejecución de pruebas y ejercicios de seguridad:
 
 ### Pruebas Unitarias y de Integración
 
-- **Backend (Jest & Supertest):**
-  - `health.test.js`: ✅ PASS (Endpoint de salud `/health`)
-  - `auth.test.js`: ✅ PASS (Rotación, detección de reúso y revocación)
-  - `tasks.test.js`: ✅ PASS (El Usuario A no puede acceder, modificar ni borrar tareas del Usuario B)
-- **Frontend Flutter (`flutter test`):**
-  - `api_client_test.dart`: ✅ PASS (Refresco automático en 401 y reintento único)
-  - `task_list_view_test.dart`: ✅ PASS (Estados: cargando, lista vacía, error con reintento, listado y toggle)
+#### 1. Frontend Flutter (`flutter test -r expanded`) — 6/6 en Verde ✅
+
+Suite completa de pruebas unitarias de red (`api_client_test.dart`) y pruebas de widgets (`task_list_view_test.dart`):
+
+<p align="center">
+  <img src="screenshots/pruebas/flutter_00_suite_completa.png" alt="Suite completa Flutter 6/6" width="850" />
+</p>
+
+| # | Archivo | Prueba | Estado | Captura |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | `api_client_test.dart` | `refreshes once on 401 and retries the original request once` | ✅ PASS | [Ver captura](screenshots/pruebas/flutter_01_refresh_on_401.png) |
+| 2 | `api_client_test.dart` | `throws ApiException on non-auth error and does not retry` | ✅ PASS | [Ver captura](screenshots/pruebas/flutter_02_non_auth_error.png) |
+| 3 | `task_list_view_test.dart` | `displays loading indicator when loading` | ✅ PASS | [Ver captura](screenshots/pruebas/flutter_03_ui_loading.png) |
+| 4 | `task_list_view_test.dart` | `displays error message and retry button on error` | ✅ PASS | [Ver captura](screenshots/pruebas/flutter_04_ui_error_retry.png) |
+| 5 | `task_list_view_test.dart` | `displays empty state message when tasks list is empty` | ✅ PASS | [Ver captura](screenshots/pruebas/flutter_05_ui_empty.png) |
+| 6 | `task_list_view_test.dart` | `displays tasks and allows toggling and deleting` | ✅ PASS | [Ver captura](screenshots/pruebas/flutter_06_ui_tasks_actions.png) |
+
+<details>
+<summary>📸 Ver las 6 capturas individuales de las pruebas de Flutter</summary>
+
+1. **ApiClient — Refresh en 401 y reintento único**  
+   <img src="screenshots/pruebas/flutter_01_refresh_on_401.png" width="820" alt="Flutter prueba 1" />
+2. **ApiClient — Error 404 sin reintento**  
+   <img src="screenshots/pruebas/flutter_02_non_auth_error.png" width="820" alt="Flutter prueba 2" />
+3. **TaskListView — Estado Loading**  
+   <img src="screenshots/pruebas/flutter_03_ui_loading.png" width="820" alt="Flutter prueba 3" />
+4. **TaskListView — Estado Error y Retry**  
+   <img src="screenshots/pruebas/flutter_04_ui_error_retry.png" width="820" alt="Flutter prueba 4" />
+5. **TaskListView — Estado Empty**  
+   <img src="screenshots/pruebas/flutter_05_ui_empty.png" width="820" alt="Flutter prueba 5" />
+6. **TaskListView — Lista, Toggle y Delete**  
+   <img src="screenshots/pruebas/flutter_06_ui_tasks_actions.png" width="820" alt="Flutter prueba 6" />
+
+</details>
+
+#### 2. Backend Node.js (Jest & Supertest)
+
+- `tests/health.test.js`: ✅ **PASS** (`1/1` — Endpoint de salud `/health`)
+  <p align="center">
+    <img src="screenshots/pruebas/backend_01_health.png" alt="Backend health.test.js" width="850" />
+  </p>
+- `tests/auth.test.js` (3 pruebas: rotación de refresh token, detección de reúso y revocación en logout) y `tests/tasks.test.js` (5 pruebas: aislamiento y autorización Anti-IDOR entre Usuario A y Usuario B): requieren PostgreSQL activo (`docker compose up -d` + `npx prisma migrate deploy` en `backend/`). Una vez levantado el contenedor, ejecutar:
+  ```bash
+  cd backend
+  npm test -- --verbose
+  ```
 
 ### 📱 Capturas de la Aplicación en Ejecución (Android Emulator)
 
